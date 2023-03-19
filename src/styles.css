@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+.completed {
+  text-decoration: line-through;
+}
+
+
+body
+{
+  background-color: cornflowerblue;
+}
+.formcheck
+{
+  display: inline !important;
+}
