@@ -1,0 +1,59 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Todo App</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/favorites" routerLinkActive="active">Favorites</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/deleted" routerLinkActive="active">Deleted</a>
+        </li>
+
+
+        <li class="nav-item">
+          <a
+            routerLink="/favorites"
+            routerLinkActive="active"
+            class="nav-link">
+            <i class="fa fa-heart"> ({{getAllFavoriteTodos()  }})</i>
+            Favorites ({{ favoritesCount() }})
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            routerLink="/deleted"
+            routerLinkActive="active"
+            class="nav-link">
+            <i class="fa fa-trash"></i>
+            Deleted ({{ deletedCount() }})
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">
+            <i class="fa fa-check"></i>
+            Completed ({{ completedPercentage() }}%)
+          </a>
+        </li>
+
+      </ul>
+      <div class="d-flex align-items-center">
+        <!-- <p class="me-3 mb-0">{{currentUser}}</p> -->
+        <img src="assets/user.png" alt="user image" width="40" height="40">
+        <button class="btn btn-outline-primary ms-3" routerLink="/profile" routerLinkActive="active">
+          <i class="bi bi-person-circle"></i> Profile
+        </button>
+        <button class="btn btn-outline-danger ms-3" (click)="onLogout()">
+          <i class="bi bi-box-arrow-right"></i> Logout
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,25 @@
+<li class="list-group-item">
+  <div class="form-check d-flex justify-content-between">
+    <input type="checkbox" class="form-check-input" [(ngModel)]="todo.completed" name="completed">
+    <label class="form-check-label" [class.completed]="todo.completed">{{ todo.todo }}</label>
+
+    <!-- <button type="button" class="btn btn-danger btn-sm " (click)="delete(todo)">Delete</button> -->
+    <!-- <button type="button" class="btn btn-success btn-sm " >show</button> -->
+    <!-- <button type="button" class="btn btn-danger btn-sm " >Favorite</button> -->
+
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <button type="button" class="btn btn-danger" (click)="delete(todo)">
+        <i class="fa fa-trash"></i> Delete
+      </button>
+      <button type="button" class="btn btn-primary" (click)="onFavorite(todo.todo)">
+        <i class="fa fa-star"></i> Favorite
+      </button>
+      <button type="button" class="btn btn-success" (click)="onComplete(todo.todo)">
+        <i class="fa fa-check"></i> Complete
+      </button>
+      <button class="btn btn-info" (click)="showDetails()">Details</button>
+
+    </div>
+  </div>
+
+</li>

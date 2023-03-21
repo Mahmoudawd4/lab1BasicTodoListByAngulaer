@@ -26,14 +26,21 @@
       <hr>
 
       <ul class="list-group">
-        <li class="list-group-item" *ngFor="let todo of filteredTodos">
+        <!-- <li class="list-group-item" *ngFor="let todo of filteredTodos">
           <div class="form-check d-flex justify-content-between">
             <input type="checkbox" class="form-check-input" [(ngModel)]="todo.completed" name="completed">
             <label class="form-check-label" [class.completed]="todo.completed">{{ todo.todo }}</label>
             <button type="button" class="btn btn-danger btn-sm " (click)="delete(todo)">Delete</button>
 
           </div>
-        </li>
+        </li> -->
+
+        <app-item-todo *ngFor="let todo of filteredTodos" [todo]="todo">
+          
+        </app-item-todo >
+
+
+
       </ul>
     </div>
   </div>
