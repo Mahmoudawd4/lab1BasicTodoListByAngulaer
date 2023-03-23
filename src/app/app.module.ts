@@ -15,6 +15,7 @@ import { RegisterComponent } from './register/register.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { DeletedComponent } from './deleted/deleted.component';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { GetTodosByhttpComponent } from './get-todos-byhttp/get-todos-byhttp.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
     TodoDetailsComponentComponent,
     RegisterComponent,
     FavoritesComponent,
-    DeletedComponent
+    DeletedComponent,
+    GetTodosByhttpComponent
   ],
   imports: [
     HttpClientModule,

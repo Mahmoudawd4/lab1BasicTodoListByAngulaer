@@ -16,9 +16,9 @@ export class UsersAuthService {
   password!: string;
   private users: Users[] = [];
   private loggedInUser:any=null;
-   isLoggedIn = false;
-   currentUser = '';
- 
+  //  isLoggedIn = false;
+   private currentUser: string | null = null;
+
     // private users = [
     //   { id: 1, name: 'mahmoud', favoriteQuote: 'php' },
     //   { id: 2, name: 'islam', favoriteQuote: 'sql' },
@@ -36,6 +36,11 @@ export class UsersAuthService {
     if (storedUsers) {
       this.users = JSON.parse(storedUsers);
     }
+    const storedUser = localStorage.getItem('currentUser');
+    if (storedUser) {
+      this.currentUser = storedUser;
+    }
+
   }
 
   // login(username: string, password: string): Observable<boolean> {
@@ -60,13 +65,32 @@ export class UsersAuthService {
   private baseUrl = 'https://dummyjson.com/auth';
 
 
-  login(username: string, password: string) {
+  // login(username: string, password: string) {
+  //   const url = `${this.baseUrl}/login`;
+  //   const body = { username, password };
+  //   // this.isLoggedInn = true;
+  //   // this.isLoggedIn = true;
+  //   // this.currentUser = username;
+  //   return this.http.post(url, body)
+  // }
+  login(username: string, password: string): Observable<boolean> {
     const url = `${this.baseUrl}/login`;
     const body = { username, password };
-    // this.isLoggedInn = true;
-    // this.isLoggedIn = true;
-    // this.currentUser = username;
-    return this.http.post(url, body)
+    return this.http.post(url, body).pipe(
+      map((response: any) => {
+        if (response) {
+          this.currentUser = username;
+          localStorage.setItem('currentUser', username);
+          return true;
+        } else {
+          return false;
+        }
+      }),
+      catchError((error) => {
+        console.error('Error during login:', error);
+        return of(false);
+      })
+    );
   }
 
   // login(username: string, password: string): Observable<boolean> {
@@ -79,7 +103,7 @@ export class UsersAuthService {
   //         return this.isLoggedIn = true;
   //         // return this.currentUser = username;
   //         console.log(this.isLoggedIn );
-          
+
   //          true;
   //       } else {
   //         return false;
@@ -93,6 +117,25 @@ export class UsersAuthService {
   //   );
   // }
 
+  // login(username: string, password: string): Observable<boolean> {
+  //   const url = `${this.baseUrl}/login`;
+  //   const body = { username, password };
+  //   return this.http.post(url, body).pipe(
+  //     map((response: any) => {
+  //       if (response) {
+  //         this.isLoggedIn = true;
+  //         this.currentUser = username;
+  //         return true;
+  //       } else {
+  //         return false;
+  //       }
+  //     }),
+  //     catchError((error) => {
+  //       console.error('Error during login:', error);
+  //       return of(false);
+  //     })
+  //   );
+  // }
 
   register(name: string, email: string, password: string) {
     const url = `https://dummyjson.com/users/add`;
@@ -142,16 +185,34 @@ export class UsersAuthService {
     }
   }
 
-    logout(): void {
-      this.loggedInUser = null;
-      localStorage.removeItem('loggedInUser');
-      this.isLoggedInn = false;
-      this.isLoggedIn = false;
-    this.currentUser = '';
+    // logout(): void {
+    //   this.loggedInUser = null;
+    //   localStorage.removeItem('loggedInUser');
+    //   this.isLoggedInn = false;
+    //   this.isLoggedIn = false;
+    // this.currentUser = '';
+    // }
+
+    logout() {
+      this.currentUser = null;
+      localStorage.removeItem('currentUser');
     }
-    getCurrentUser(): string {
+
+    // getIsLoggedIn(): Observable<boolean> {
+    //   return of(this.isLoggedIn());
+    // }
+
+    isLoggedIn(): boolean {
+      return this.currentUser !== null;
+    }
+
+    getCurrentUser(): string | null {
       return this.currentUser;
     }
+
+    // getCurrentUser(): string {
+    //   return this.currentUser;
+    // }
     // isLoggedIn(): boolean {
     //   return !!this.loggedInUser;
     // }
@@ -160,10 +221,10 @@ export class UsersAuthService {
       return this.loggedInUser;
     }
 
-    getIsLoggedIn(): Observable<boolean> {
-      return of(this.isLoggedIn);
-    }
 
+    getIsLoggedIn(): Observable<boolean> {
+      return of(this.isLoggedIn());
+    }
 
     // getIsLoggedIn() {
     //   return this.isLoggedInn;

@@ -14,23 +14,31 @@ export class TodoDetailsComponentComponent {
   @Input() todos!: Todos;
   // @Input() todo: Todos;
   todosid:any ;
-  id:any;
+  id: string;
+  todo: Todos | undefined;
   singletodo:any
-  todo!: Todos;
+  // todo!: Todos;
   constructor(private router: Router, private _Todos:TodosService ,private _activateRoute : ActivatedRoute) {
     // console.log(this._activateRoute.snapshot.params['id']);
-    this.id = this._activateRoute.snapshot.params['id']
-    this.todosid = this._Todos.getTodoById(this.id)
-    this.singletodo = _Todos.getTodoById(this.id)
+    // this.id = this._activateRoute.snapshot.params['id']
+    // this.todosid = this._Todos.getTodoById(this.id)
+    // this.singletodo = _Todos.getTodoById(this.id)
     // console.log(_Todos.getTodoById(this.id));
 
     // this.getTodoById();
 
+    this.id = this._activateRoute.snapshot.params['id'];
+    this.todo = this._Todos.getTodoById(this.id);
+    console.log(this.id);
 
   }
   ngOnInit() {
     // const _id = this._activateRoute.snapshot.paramMap.get('id');
-    // this.todo!= this._Todos.getTodoById(this.id);
+    // const _id = this._activateRoute.snapshot.params['id']
+
+    // console.log(_id);
+
+    // this.todo!= this._Todos.getTodoById(_id);
   }
   // todosid:any ;
   // constructor(private router: Router, private _Todos:TodosService, private _activateRoute : ActivatedRoute) {
@@ -46,10 +54,10 @@ export class TodoDetailsComponentComponent {
 
 
 
-  // getTodoById(): void {
-  //   // const id = this._activateRoute.snapshot.params['id']
-  //   this.todo!= this._Todos.getTodoById(this.id);
-  // }
+  getTodoById(): void {
+    // const id = this._activateRoute.snapshot.params['id']
+    this.todo!= this._Todos.getTodoById(this.id);
+  }
 
   // getProductById(){
   //   this._Todos.getTodoById(this.id).subscribe(

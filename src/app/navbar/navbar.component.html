@@ -84,8 +84,8 @@
           </a>
         </li>
       </ul>
-      <div class="d-flex align-items-center">
-        <ng-container *ngIf="isLoggedIn; else showLogin">
+      <!-- <div class="d-flex align-items-center">
+        <ng-container *ngIf="currentUser; else showLogin">
           <img src="../../assets/img.jpg" alt="user image" width="40" height="40">
           <p class="me-3 mb-0">{{currentUser}}</p>
           <button class="btn btn-outline-danger ms-3" (click)="onLogout()">
@@ -97,7 +97,27 @@
             <i class="bi bi-person-circle"></i> Login
           </button>
         </ng-template>
-      </div>
+      </div> -->
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <!-- Other Navbar Items -->
+        <li class="nav-item">
+          <div class="d-flex align-items-center">
+            <ng-container *ngIf="currentUser; else showLogin">
+              <img src="../../assets/img.jpg" alt="user image" width="40" height="40">
+              <p class="me-3 mb-0">{{currentUser}}</p>
+              <button class="btn btn-outline-danger ms-3" (click)="onLogout()">
+                <i class="bi bi-box-arrow-right"></i> Logout
+              </button>
+            </ng-container>
+            <ng-template #showLogin>
+              <button class="btn btn-outline-success ms-3" routerLink="/login" routerLinkActive="active">
+                <i class="bi bi-person-circle"></i> Login
+              </button>
+            </ng-template>
+          </div>
+        </li>
+      </ul>
+
       <!-- <div class="d-flex align-items-center">
         <ng-container *ngIf="isLoggedIn; else showLogin">
           <img src="../../assets/img.jpg" alt="" width="40" height="40" class="rounded-circle me-3">

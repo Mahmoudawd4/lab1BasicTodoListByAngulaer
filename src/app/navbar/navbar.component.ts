@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { TodosService } from '../todos.service';
 import { UsersAuthService } from '../users-auth.service';
 
@@ -8,11 +9,11 @@ import { UsersAuthService } from '../users-auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
- 
-  isLoggedIn = false;
-  currentUser: string | null = null;
 
-  constructor(private authService: UsersAuthService,private _Todos:TodosService) { }
+  isLoggedIn = false;
+  currentUser: string='';
+
+  constructor(private authService: UsersAuthService,private _Todos:TodosService, private router: Router) { }
   // favoritesCount = 2;
   // deletedCount = 1;
   // completedPercentage = 60;
@@ -20,10 +21,10 @@ export class NavbarComponent {
   // ngOnInit(): void {
   //   this.authService.getIsLoggedIn().subscribe((isLoggedIn) => {
   //     this.isLoggedIn = isLoggedIn;
-  //     this.currentUser = this.authService.getCurrentUser(); 
+  //     this.currentUser = this.authService.getCurrentUser();
   //     console.log( this.isLoggedIn);
   //     console.log( this.currentUser);
-      
+
   //   });
   // }
 
@@ -41,9 +42,43 @@ export class NavbarComponent {
   //   // this.currentUser = this.authService.getCurrentUser();
   // }
 
+  // ngOnInit(): void {
+    // this.authService.getIsLoggedIn().subscribe((isLoggedIn) => {
+    //   this.isLoggedIn = isLoggedIn;
+    //   console.log(isLoggedIn);
+    // a  console.log(this.isLoggedIn);
+    //   this.currentUser = this.authService.getCurrentUser();
+    // });
+  // }
 
+  // ngOnInit(): void {
+    // this.authService.getIsLoggedIn().subscribe((isLoggedIn) => {
+    //   this.isLoggedIn = isLoggedIn;
+    //   if(isLoggedIn){
+    //     this.currentUser!= this.authService.getCurrentUser();
+        // this.userName = this.currentUser.name; // assuming that the user object has a name property
+        // this.userImage = this.currentUser.image; // assuming that the user object has an image property
+      // }
+    // });
+
+    // this.currentUser!= localStorage.getItem('currentUser');
+
+  // }
+
+  ngOnInit(): void {
+    this.getCurrentUser();
+    this.onLogout()
+  }
+
+  getCurrentUser(): void {
+    const user = localStorage.getItem('currentUser');
+    if (user) {
+      this.currentUser = user;
+    }
+  }
   onLogout(): void {
     this.authService.logout();
+    this.router.navigate(['/login']);
   }
   favoritesCount():any{
     return this._Todos.favoritesCount()

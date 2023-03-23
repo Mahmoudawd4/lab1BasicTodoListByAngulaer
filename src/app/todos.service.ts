@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Todos } from './todos';
@@ -8,7 +9,7 @@ import { Todos } from './todos';
 export class TodosService {
   public isLiggedIn:boolean = false;
   public task:any
-  constructor() { }
+  constructor(private http: HttpClient){}
   todos: Todos[] = [
     {
       id: 1,
@@ -96,6 +97,9 @@ export class TodosService {
     return this.todos.filter(todo => !todo.isDeleted && todo.favorite);
   }
 
+  getAllTodosByHttp(): Observable<Object> {
+    return this.http.get('https://dummyjson.com/todos');
+  }
 
   // deletedCount() {
   //   return this.todos.filter(todo => todo.deleted).length;
@@ -113,8 +117,9 @@ export class TodosService {
     // console.log(this.todos.filter(todo => todo.favorite).length);
 
   }
-  getTodoById(id: number) {
-    return this.todos.find(todo => todo.id === id);
+  getTodoById(id: string): Todos | undefined {
+    // return this.todos.find((todo) => todo.id === parseInt(id:number));
+    return this.todos.find((todo: any) => todo.id === parseInt(id, 10));
   }
 
   // getProductById(id: number): Observable<Todos> {
