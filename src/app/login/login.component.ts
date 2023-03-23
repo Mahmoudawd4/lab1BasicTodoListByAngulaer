@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { UsersAuthService } from '../users-auth.service';
 import { NgForm } from '@angular/forms';
+import { AuthGuard } from '../auth.guard';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,9 @@ export class LoginComponent {
   // isLoggedIn = false;
    isLoggedInn:boolean = false;
 
-  constructor(private router: Router,private _Auth:UsersAuthService,private formBuilder: FormBuilder ) {
+  constructor(private router: Router,private _Auth:UsersAuthService,
+    private formBuilder: FormBuilder,
+    private authGuard: AuthGuard) {
 
     // this.loginForm = new FormGroup({
     //   username: new FormControl(null, [Validators.required , Validators.pattern('')]),
@@ -81,6 +84,8 @@ export class LoginComponent {
     this._Auth.login(username, password).subscribe(
       (result) => {
         this.isLoggedInn = true;
+        this.authGuard.change();
+        if(result)
         this.router.navigate(['/home']);
         console.log('Logged in successfully');
 

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthGuard } from '../auth.guard';
 import { TodosService } from '../todos.service';
 import { UsersAuthService } from '../users-auth.service';
 
@@ -11,9 +12,14 @@ import { UsersAuthService } from '../users-auth.service';
 export class NavbarComponent {
 
   isLoggedIn = false;
-  currentUser: string='';
+  loggedIn = false;
 
-  constructor(private authService: UsersAuthService,private _Todos:TodosService, private router: Router) { }
+  // currentUser: string='';
+  currentUser:string=localStorage.getItem('currentUser')!;
+
+  constructor(private authService: UsersAuthService,private _Todos:TodosService,
+     private router: Router,
+     private authGuard: AuthGuard) { }
   // favoritesCount = 2;
   // deletedCount = 1;
   // completedPercentage = 60;
@@ -65,10 +71,31 @@ export class NavbarComponent {
 
   // }
 
-  ngOnInit(): void {
-    this.getCurrentUser();
-    this.onLogout()
+  // ngOnInit(): void {
+  //   this.getCurrentUser();
+  //   this.onLogout()
+
+  //   this.authService.UsersloginService.subscribe(
+  //     (next)=>{
+  //       // console.log(next);
+  //       this.currentUser=next.name;
+  //     },
+  //     (error)=>{
+  //       console.log("error in showing items in basket")
+  //     },
+  //     ()=>{}
+
+  //   );
+
+  // }
+
+  ngOnInit() {
+    this.authGuard.loggedIn$.subscribe((loggedIn) => {
+      this.loggedIn = loggedIn;
+    });
+
   }
+
 
   getCurrentUser(): void {
     const user = localStorage.getItem('currentUser');
@@ -78,6 +105,7 @@ export class NavbarComponent {
   }
   onLogout(): void {
     this.authService.logout();
+    this.authGuard.change();
     this.router.navigate(['/login']);
   }
   favoritesCount():any{

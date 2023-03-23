@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
+import { CommentComponent } from './comment/comment.component';
 import { DeletedComponent } from './deleted/deleted.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { LoginComponent } from './login/login.component';
@@ -13,13 +14,15 @@ import { TodoListComponent } from './todo-list/todo-list.component';
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  // { path: 'register', component: RegisterComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'comments', component: CommentComponent ,canActivate:[AuthGuard]},
   { path: 'home', component: TodoListComponent ,canActivate:[AuthGuard]},
-  { path: 'favorites', component: FavoritesComponent },
-  { path: 'deleted', component: DeletedComponent },
-  { path: 'todos/:id', component: TodoDetailsComponentComponent },
+  { path: 'favorites', component: FavoritesComponent ,canActivate:[AuthGuard]},
+  { path: 'deleted', component: DeletedComponent ,canActivate:[AuthGuard]},
+  { path: 'todos/:id', component: TodoDetailsComponentComponent ,canActivate:[AuthGuard]},
   // { path: 'todos/:id', component: TodoDetailsComponentComponent }
-  { path: 'not-found', component: NotFoundComponent},
+  { path: 'not-found', component: NotFoundComponent },
   { path: '**', redirectTo: '/not-found' },
 ];
 

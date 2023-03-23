@@ -14,8 +14,10 @@ import { TodoDetailsComponentComponent } from './todo-details-component/todo-det
 import { RegisterComponent } from './register/register.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { DeletedComponent } from './deleted/deleted.component';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { GetTodosByhttpComponent } from './get-todos-byhttp/get-todos-byhttp.component';
+import { CommentComponent } from './comment/comment.component';
+import { CommntIntInterceptor } from './commnt-int.interceptor';
 
 @NgModule({
   declarations: [
@@ -30,16 +32,20 @@ import { GetTodosByhttpComponent } from './get-todos-byhttp/get-todos-byhttp.com
     RegisterComponent,
     FavoritesComponent,
     DeletedComponent,
-    GetTodosByhttpComponent
+    GetTodosByhttpComponent,
+    CommentComponent
   ],
   imports: [
+    
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: CommntIntInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

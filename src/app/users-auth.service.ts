@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
 import { Users } from './users';
 import { HttpClient } from '@angular/common/http';
@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class UsersAuthService {
+  // UsersloginService:EventEmitter<any>= new EventEmitter<any>();
 
   private isAuthenticated: boolean = false;
   private username: string = '';

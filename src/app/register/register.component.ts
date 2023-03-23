@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Users } from '../users';
 import { UsersAuthService } from '../users-auth.service';
@@ -14,11 +14,18 @@ export class RegisterComponent {
   registerForm: FormGroup;
 
   constructor(private router: Router,private userService: UsersAuthService,private formBuilder: FormBuilder) {
+    this.registerForm = new FormGroup({
+      name: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)])
+    });
+
     this.registerForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(8)]],
     });
+
   }
 
   // onSubmit(form: NgForm) {
@@ -47,12 +54,16 @@ export class RegisterComponent {
     const name = this.registerForm.value.name;
     const email = this.registerForm.value.email;
     const password = this.registerForm.value.password;
+    if (this.registerForm.valid) {
+      console.log('Registration successful!');
+      console.log(this.registerForm.value);
+    }
+
     this.userService.register(name, email, password).subscribe(
       (result) => {
         console.log('Registered successfully');
         console.log(result);
             this.router.navigate(['/login']);
-
       },
       (error) => {
         console.log(error);
