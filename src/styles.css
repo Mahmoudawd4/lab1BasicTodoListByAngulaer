@@ -13,3 +13,8 @@ body
 {
   display: inline !important;
 }
+footer {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+}

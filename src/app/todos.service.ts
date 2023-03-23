@@ -43,6 +43,13 @@ export class TodosService {
     return this.todos.filter(todo => !todo.isDeleted);
   }
 
+
+  getDeletedTodos() {
+    //  return this.getAllTodo().filter(todo => todo.isDeleted);
+    return this.todos.filter(todo => todo.isDeleted);
+  }
+
+
   // deleteTodo(todo:Todos)
   // {
   //   const index = this.todos.findIndex(item => item.id === todo.id);
@@ -89,7 +96,7 @@ export class TodosService {
     return this.todos.filter(todo => !todo.isDeleted && todo.favorite);
   }
 
-  
+
   // deletedCount() {
   //   return this.todos.filter(todo => todo.deleted).length;
   // }
@@ -103,12 +110,17 @@ export class TodosService {
   // }
   favoritesCount(): number {
     return this.todos.filter(todo => todo.favorite).length;
-    console.log(this.todos.filter(todo => todo.favorite).length);
+    // console.log(this.todos.filter(todo => todo.favorite).length);
 
   }
   getTodoById(id: number) {
     return this.todos.find(todo => todo.id === id);
   }
+
+  // getProductById(id: number): Observable<Todos> {
+  //   return this..get<Todos>
+  // }
+
   // completedPercentage(): number {
   //   const completedTodos = this.todos.filter(todo => todo.completed);
   //   return completedTodos.length / this.todos.length * 100;

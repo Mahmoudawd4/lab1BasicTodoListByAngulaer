@@ -13,6 +13,8 @@ import { ItemTodoComponent } from './item-todo/item-todo.component';
 import { TodoDetailsComponentComponent } from './todo-details-component/todo-details-component.component';
 import { RegisterComponent } from './register/register.component';
 import { FavoritesComponent } from './favorites/favorites.component';
+import { DeletedComponent } from './deleted/deleted.component';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -25,9 +27,11 @@ import { FavoritesComponent } from './favorites/favorites.component';
     ItemTodoComponent,
     TodoDetailsComponentComponent,
     RegisterComponent,
-    FavoritesComponent
+    FavoritesComponent,
+    DeletedComponent
   ],
   imports: [
+    HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
     BrowserModule,

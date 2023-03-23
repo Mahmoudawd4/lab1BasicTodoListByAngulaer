@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsersAuthService } from '../users-auth.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -11,10 +12,14 @@ import { UsersAuthService } from '../users-auth.service';
 export class LoginComponent {
 
   loginForm:FormGroup;
+  email!: string;
+  password!: string;
+  // data={email:"",password:""}
 
   name: string='';
   quote: string='';
-  isLoggedIn = false;
+  // isLoggedIn = false;
+   isLoggedInn:boolean = false;
 
   constructor(private router: Router,private _Auth:UsersAuthService,private formBuilder: FormBuilder ) {
 
@@ -22,6 +27,9 @@ export class LoginComponent {
     //   username: new FormControl(null, [Validators.required , Validators.pattern('')]),
     //   password: new FormControl(null, [Validators.required])
     // })
+
+
+
 
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
@@ -49,18 +57,76 @@ export class LoginComponent {
   //     this.router.navigate(['/home']);
   // }
 
+
+
+  // constructor(private http: HttpClient) { }
+
+  // fetch('https://dummyjson.com/auth/login', {
+//   method: 'POST',
+//   headers: { 'Content-Type': 'application/json' },
+//   body: JSON.stringify({
+
+//     username: 'kminchelle',
+//     password: '0lelplR',
+//     // expiresInMins: 60, // optional
+//   })
+// })
+// .then(res => res.json())
+// .then(console.log);
+
+
   onSubmit() {
-    const { username, password } = this.loginForm.value;
-    this._Auth.login(username, password).subscribe(success => {
-      if (success) {
-        // Redirect to home page
-             this.router.navigate(['/home']);
-      } else {
-        // Display error message
+    const username = this.loginForm.value.username;
+    const password = this.loginForm.value.password;
+    this._Auth.login(username, password).subscribe(
+      (result) => {
+        this.isLoggedInn = true;
+        this.router.navigate(['/home']);
+        console.log('Logged in successfully');
+
+      },
+      (error) => {
         this.router.navigate(['/login']);
+        console.log('Login failed');
 
       }
-    });
+    );
+
+
   }
 
+
+
 }
+
+
+
+  // onSubmit() {
+  //   const { email, password } = this.loginForm.value;
+  //   this._Auth.onSubmitt(email,password).subscribe(
+  //     (res)=>{
+  //       this.router.navigate(['/home']);
+  //     },
+  //     (err) => {
+  //       this.router.navigate(['/login']);
+  //     }
+  //   )
+  // }
+
+
+
+  // onSubmit() {
+  //   const { username, password } = this.loginForm.value;
+  //   this._Auth.login(username, password).subscribe(success => {
+  //     if (success) {
+  //       // Redirect to home page
+  //            this.router.navigate(['/home']);
+  //     } else {
+  //       // Display error message
+  //       this.router.navigate(['/login']);
+
+  //     }
+  //   });
+  // }
+
+

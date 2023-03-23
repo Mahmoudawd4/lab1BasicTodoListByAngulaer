@@ -8,15 +8,39 @@ import { UsersAuthService } from '../users-auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+ 
+  isLoggedIn = false;
+  currentUser: string | null = null;
 
   constructor(private authService: UsersAuthService,private _Todos:TodosService) { }
   // favoritesCount = 2;
   // deletedCount = 1;
   // completedPercentage = 60;
 
-  ngOnInit(): void {
-    // this.currentUser = this.authService.getCurrentUser();
-  }
+  // ngOnInit(): void {
+  //   this.authService.getIsLoggedIn().subscribe((isLoggedIn) => {
+  //     this.isLoggedIn = isLoggedIn;
+  //     this.currentUser = this.authService.getCurrentUser(); 
+  //     console.log( this.isLoggedIn);
+  //     console.log( this.currentUser);
+      
+  //   });
+  // }
+
+
+  // ngOnInit(): void {
+  //   this.authService.getIsLoggedIn().subscribe((isLoggedIn) => {
+  //     this.isLoggedIn = isLoggedIn;
+  //     this.currentUser = this.authService.getCurrentUser();
+  //   });
+  // }
+
+
+  // ngOnInit(): void {
+  //   // this.isLoggedIn = this.authService.isLoggedIn;
+  //   // this.currentUser = this.authService.getCurrentUser();
+  // }
+
 
   onLogout(): void {
     this.authService.logout();
