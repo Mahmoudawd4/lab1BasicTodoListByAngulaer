@@ -18,6 +18,7 @@ import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common
 import { GetTodosByhttpComponent } from './get-todos-byhttp/get-todos-byhttp.component';
 import { CommentComponent } from './comment/comment.component';
 import { CommntIntInterceptor } from './commnt-int.interceptor';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { CommntIntInterceptor } from './commnt-int.interceptor';
     FavoritesComponent,
     DeletedComponent,
     GetTodosByhttpComponent,
-    CommentComponent
+    CommentComponent,
+    AboutComponent
   ],
   imports: [
     

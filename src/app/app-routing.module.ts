@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AboutComponent } from './about/about.component';
 import { AuthGuard } from './auth.guard';
 import { CommentComponent } from './comment/comment.component';
 import { DeletedComponent } from './deleted/deleted.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
   // { path: 'register', component: RegisterComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'comments', component: CommentComponent ,canActivate:[AuthGuard]},
+  { path: 'about', component: AboutComponent},
   { path: 'home', component: TodoListComponent ,canActivate:[AuthGuard]},
   { path: 'favorites', component: FavoritesComponent ,canActivate:[AuthGuard]},
   { path: 'deleted', component: DeletedComponent ,canActivate:[AuthGuard]},
