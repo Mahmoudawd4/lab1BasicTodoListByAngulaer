@@ -19,6 +19,7 @@ import { GetTodosByhttpComponent } from './get-todos-byhttp/get-todos-byhttp.com
 import { CommentComponent } from './comment/comment.component';
 import { CommntIntInterceptor } from './commnt-int.interceptor';
 import { AboutComponent } from './about/about.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { AboutComponent } from './about/about.component';
     AboutComponent
   ],
   imports: [
-    
+
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
@@ -46,6 +47,7 @@ import { AboutComponent } from './about/about.component';
     AppRoutingModule
   ],
   providers: [
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
     { provide: HTTP_INTERCEPTORS, useClass: CommntIntInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
